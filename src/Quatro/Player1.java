@@ -114,25 +114,87 @@ public class Player1 {
     }
     
     private int heuristica(int[][] taulell){
-//         for(int i=0;i<4;i++){
-//            //per a totes les linies horitzontals
-//            
-//            //per a totes les linies verticals
-//            
-//            //per als dos diagonals
-//        }
-        // nextInt is normally exclusive of the top value,
-        // so add 1 to make it inclusive
-        int randomNum = ThreadLocalRandom.current().nextInt(5, 100 + 1);
-        return randomNum;
+        int valor=0;
+        for(int i=0;i<4;i++){
+            for(int j=0;j<4;j++){
+                int zerosColorH = 0, zerosFormaH = 0, zerosForatH = 0, zerosTamanyH = 0;
+                int unsColorH = 0, unsFormaH = 0, unsForatH = 0, unsTamanyH = 0;
+                int zerosColorV = 0, zerosFormaV = 0, zerosForatV = 0, zerosTamanyV = 0;
+                int unsColorV = 0, unsFormaV = 0, unsForatV = 0, unsTamanyV = 0;
+                
+                if(taulell[i][j]!=-1){
+                    if(taulell[i][j]/1000==0){ zerosColorH++; } 
+                    else if(taulell[i][j]/1000==1){ unsColorH++; }
+
+                    if((taulell[i][j]%1000)/100==0){ zerosFormaH++; } 
+                    else if((taulell[i][j]%1000)/100==1){ unsFormaH++; }
+
+                    if((taulell[i][j]%100)/10==0){ zerosForatH++; } 
+                    else if((taulell[i][j]%100)/10==1){ unsForatH++; }
+
+                    if(taulell[i][j]%10==0){ zerosTamanyH++; } 
+                    else if(taulell[i][j]%10==1){ unsTamanyH++; }
+                }
+                
+                if(taulell[j][i]!=-1){
+                    if(taulell[j][i]/1000==0){ zerosColorV++; } 
+                    else if(taulell[j][i]/1000==1){ unsColorV++; }
+
+                    if((taulell[j][i]%1000)/100==0){ zerosFormaV++; } 
+                    else if((taulell[j][i]%1000)/100==1){ unsFormaV++; }
+
+                    if((taulell[j][i]%100)/10==0){ zerosForatV++; } 
+                    else if((taulell[j][i]%100)/10==1){ unsForatV++; }
+
+                    if(taulell[j][i]%10==0){ zerosTamanyV++; } 
+                    else if(taulell[j][i]%10==1){ unsTamanyV++; }
+                }
+                valor = valor + ((Math.abs(zerosColorH-unsColorH))*10) + ((Math.abs(zerosFormaH-unsFormaH))*10) 
+                        + ((Math.abs(zerosForatH-unsForatH))*10) + ((Math.abs(zerosTamanyH-unsTamanyH))*10)
+                        + ((Math.abs(zerosColorV-unsColorV))*10) + ((Math.abs(zerosForatV-unsForatV))*10) 
+                        + ((Math.abs(zerosFormaV-unsFormaV))*10) + ((Math.abs(zerosTamanyV-unsTamanyV))*10);
+            } 
+        }
         
-//        for(int i=0;i<4;i++){
-//            //per a totes les linies horitzontals
-//            
-//            //per a totes les linies verticals
-//            
-//            //per als dos diagonals
-//        }
+        for(int i=0;i<4;i++){
+            int zerosColorDE = 0, zerosFormaDE = 0, zerosForatDE = 0, zerosTamanyDE = 0;
+            int unsColorDE = 0, unsFormaDE = 0, unsForatDE = 0, unsTamanyDE = 0;
+            int zerosColorDD = 0, zerosFormaDD = 0, zerosForatDD = 0, zerosTamanyDD = 0;
+            int unsColorDD = 0, unsFormaDD = 0, unsForatDD = 0, unsTamanyDD = 0;
+            
+            if(taulell[i][i]!=-1){
+                if(taulell[i][i]/1000==0){ zerosColorDE++; } 
+                else if(taulell[i][i]/1000==1){ unsColorDE++; }
+
+                if((taulell[i][i]%1000)/100==0){ zerosFormaDE++; } 
+                else if((taulell[i][i]%1000)/100==1){ unsFormaDE++; }
+
+                if((taulell[i][i]%100)/10==0){ zerosForatDE++; } 
+                else if((taulell[i][i]%100)/10==1){ unsForatDE++; }
+
+                if(taulell[i][i]%10==0){ zerosTamanyDE++; } 
+                else if(taulell[i][i]%10==1){ unsTamanyDE++; }
+            }
+
+            if(taulell[i][3-i]!=-1){
+                if(taulell[i][3-i]/1000==0){ zerosColorDD++; } 
+                else if(taulell[i][3-i]/1000==1){ unsColorDD++; }
+
+                if((taulell[i][3-i]%1000)/100==0){ zerosFormaDD++; } 
+                else if((taulell[i][3-i]%1000)/100==1){ unsFormaDD++; }
+
+                if((taulell[i][3-i]%100)/10==0){ zerosForatDD++; } 
+                else if((taulell[i][3-i]%100)/10==1){ unsForatDD++; }
+
+                if(taulell[i][3-i]%10==0){ zerosTamanyDD++; } 
+                else if(taulell[i][3-i]%10==1){ unsTamanyDD++; }
+            }
+            valor = valor + ((Math.abs(zerosColorDE-unsColorDE))*10) + ((Math.abs(zerosFormaDE-unsFormaDE))*10) 
+                        + ((Math.abs(zerosForatDE-unsForatDE))*10) + ((Math.abs(zerosTamanyDE-unsTamanyDE))*10)
+                        + ((Math.abs(zerosColorDD-unsColorDD))*10) + ((Math.abs(zerosForatDD-unsForatDD))*10) 
+                        + ((Math.abs(zerosFormaDD-unsFormaDD))*10) + ((Math.abs(zerosTamanyDD-unsTamanyDD))*10);
+        }
+        return valor;
     }
     
     private int minimax(int[][] taulell, int nivell, int pecaDonar, boolean esMax){
@@ -194,7 +256,6 @@ public class Player1 {
                             
                         taulell[fills.get(i).posX][fills.get(i).posY] = -1;
                         pecesUsades[mapPecaDonar] = false;
-                       
                     }
                 }
                 return heuristicaMillor;
@@ -207,10 +268,7 @@ public class Player1 {
      //formain - Forma de la peça a colocar -> 	0 = Rodona 	1 = Quadrat
      //foratin - Forat de la peça a colocar -> 	0 = No  	1 = Si
      //tamanyin - Forat de la peça a colocar -> 0 = Petit 	1 = Gran
-        
-        //System.out.println("jugador 1 -> colorin: "+colorin+", formain: "+formain+", foratin; "+foratin+", tamanyin: "+tamanyin);
-     
-        
+
         int pecaRebuda = colorin*1000 + formain*100 + foratin*10 + tamanyin;
         
         //Es miren les peces que ja s'han utilitzat i si és cert, les marquem
@@ -232,16 +290,15 @@ public class Player1 {
                 if(trobat){ pecesUsades[i] = true; pecesFaltants--;}
             }
         }
-        System.out.println("Peces Faltants: "+pecesFaltants);
         
         if(pecesFaltants==0){ //només queda una peca per completar el tauler
             int x=-1, y=-1;
-            for(int m=0;m<16;m++){
+            for(int m=0;m<4;m++){
                 for(int n=0;n<4;n++){
                     if(meutaulell.getpos(m,n) == -1){x=m; y=n;}
                 }
             }
-            return new int[]{x,y,0,0,0,0};
+            return new int[]{x,y,-1,-1,-1,-1};
         }
         else{
             

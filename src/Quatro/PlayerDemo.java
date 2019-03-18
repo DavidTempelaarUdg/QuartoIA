@@ -55,7 +55,6 @@ public class PlayerDemo {
         for(int i=0;i<meutaulell.getX();i++){
             for(int j=0;j<meutaulell.getY();j++){
                 if (meutaulell.getpos(i,j) == -1){
-                    System.out.println("Dins for -> i: "+i+", j: "+j+", color; "+color+", forma: "+forma+", forat: "+forat+", tamany: "+tamany);
                     return new int[]{i,j,color, forma, forat, tamany}; 
                 }
             }
